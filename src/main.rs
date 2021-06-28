@@ -1,36 +1,52 @@
-use reqwest;
-use teloxide::{payloads::SendPhotoSetters, prelude::*};
-use serde::Deserialize;
+use teloxide::{prelude::*, utils::command::BotCommand};
 
+mod utils;
+
+use std::error::Error;
+use utils::{get_image, get_random_image};
+#[derive(BotCommand)]
+#[command(
+    rename = "lowercase",
+    description = "These are the commands supported!"
+)]
+enum Command {
+    #[command(description = "Get Help")]
+    Help,
+    #[command(description = "Get from random category")]
+    Random,
+    #[command(description = "Get from particular category.")]
+    Gurl(String),
+}
+
+async fn reply(
+    cx: UpdateWithCx<AutoSend<Bot>, Message>,
+    command: Command,
+) -> Result<(), Box<dyn Error + Send + Sync>> {
+    match command {
+        Command::Help => cx.answer(Command::descriptions()).await.unwrap(),
+        Command::Random => {
+            let random_image = get_random_image().await;
+            cx.answer_photo(teloxide::types::InputFile::Url(random_image.url))
+                .await?
+        }
+        Command::Gurl(category) => {
+            let image = get_image(&category).await;
+            cx.answer_photo(teloxide::types::InputFile::Url(image.url))
+                .await?
+        }
+    };
+    Ok(())
+}
 #[tokio::main]
 async fn main() {
     run().await
-}
-
-#[derive(Deserialize, Debug)]
-struct APiResponse {
-    url: String,
 }
 
 async fn run() {
     teloxide::enable_logging!();
     log::info!("Starting BOT!!!");
 
-    let bot = Bot::new("Your TOKEN").auto_send();
+    let bot = Bot::new("Your Token").auto_send();
 
-    teloxide::repl(bot, |message| async move {
-        let res = reqwest::get("https://api.waifu.pics/sfw/shinobu")
-            .await
-            .unwrap()
-            .json::<APiResponse>()
-            .await
-            .unwrap();
-
-        message
-            .answer_photo(teloxide::types::InputFile::Url(res.url))
-            .caption("Hello Shinobu")
-            .await?;
-        respond(())
-    })
-    .await;
+    teloxide::commands_repl(bot, "Your Bot Name", reply).await
 }
