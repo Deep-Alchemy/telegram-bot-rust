@@ -11,6 +11,8 @@ Rust along with it too.
 
 This project uses cargo, Be sure to ensure you got that installed.
 
+**NOTE**: You can change the configuration settings available in `config.rs`.
+
 And here's the steps to get it running!
 
 - Install the dependencies: `cargo build`
