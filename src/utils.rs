@@ -5,6 +5,7 @@ use crate::models::APiResponse;
 
 pub async fn get_image(category: &str) -> APiResponse {
     let mut mutable_category = category;
+
     if mutable_category.is_empty() {
         mutable_category = "waifu"
     };
