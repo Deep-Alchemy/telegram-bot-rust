@@ -1,11 +1,7 @@
+// Imports
 use rand::seq::SliceRandom;
-use reqwest;
-use serde::Deserialize;
 
-#[derive(Deserialize, Debug)]
-pub struct APiResponse {
-    pub url: String,
-}
+use crate::models::APiResponse;
 
 pub async fn get_image(category: &str) -> APiResponse {
     let mut mutable_category = category;
