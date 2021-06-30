@@ -43,10 +43,19 @@ async fn main() {
 }
 
 async fn run() {
+    // Enable teleoxide logging
     teloxide::enable_logging!();
-    log::info!("Starting BOT!!!");
 
-    let bot = Bot::new("Your Token").auto_send();
+    // Log start
+    log::info!("Starting BOT...");
 
+    // Login with a bot token from the environment
+    let token = std::env::var("BOT_TOKEN")
+    .expect("`BOT_TOKEN` Missing! Please initialize it");
+
+    // Initialize bot
+    let bot = Bot::new(token).auto_send();
+
+    // Init commands
     teloxide::commands_repl(bot, "Your Bot Name", reply).await
 }

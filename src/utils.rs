@@ -20,11 +20,13 @@ pub async fn get_image(category: &str) -> APiResponse {
         .json::<APiResponse>()
         .await
         .unwrap();
+
     res
 }
 
 pub async fn get_random_image() -> APiResponse {
     let categories = vec!["waifu", "shinobu", "neko"];
     let random_category = categories.choose(&mut rand::thread_rng()).unwrap();
+
     get_image(random_category).await
 }
