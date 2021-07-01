@@ -9,6 +9,10 @@ use std::env;
 
 use teloxide::prelude::*;
 
+// Define custom types
+pub type Cxt = UpdateWithCx<AutoSend<Bot>, Message>;
+pub type Ctx = UpdateWithCx<AutoSend<Bot>, CallbackQuery>;
+
 #[tokio::main]
 async fn main() {
     run().await

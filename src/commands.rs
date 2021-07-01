@@ -30,8 +30,8 @@ pub async fn handle_commands(
     // Match commands
     match command {
         Command::Help => cx.answer(Command::descriptions()).await.unwrap(),
-        Command::Random => random::random_command(cx).await,
-        Command::Gurl(category) => gurl::gurl_command(cx, category).await
+        Command::Random => random::random_command(&cx).await,
+        Command::Gurl(category) => gurl::gurl_command(&cx, category).await
     };
 
     // Return OK
