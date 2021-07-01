@@ -3,7 +3,7 @@ use rand::seq::SliceRandom;
 
 use crate::models::APiResponse;
 
-pub async fn get_image(category: &str) -> APiResponse {
+pub async fn get_image(category: &str) -> Result<APiResponse, reqwest::Error> {
     let mut mutable_category = category;
     if mutable_category.is_empty() {
         mutable_category = "waifu"
@@ -14,8 +14,7 @@ pub async fn get_image(category: &str) -> APiResponse {
         .await
         .unwrap()
         .json::<APiResponse>()
-        .await
-        .unwrap();
+        .await;
 
     res
 }
@@ -24,5 +23,5 @@ pub async fn get_random_image() -> APiResponse {
     let categories = vec!["waifu", "shinobu", "neko"];
     let random_category = categories.choose(&mut rand::thread_rng()).unwrap();
 
-    get_image(random_category).await
+    get_image(random_category).await.unwrap()
 }
