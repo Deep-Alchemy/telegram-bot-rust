@@ -35,7 +35,7 @@ pub async fn handle_commands(
         Command::Help => cx.answer(Command::descriptions()).await.unwrap(),
         Command::Random => random::random_command(&cx).await,
         Command::Gurl(category) => gurl::gurl_command(&cx, category).await,
-        Command::Quote(character) => quote::quote_command(cx, character).await,
+        Command::Quote(character) => quote::quote_command(&cx, character).await,
     };
 
     // Return OK

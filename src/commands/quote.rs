@@ -2,8 +2,9 @@
 use rand::seq::SliceRandom;
 use teloxide::{payloads::SendMessageSetters, prelude::*, types::ParseMode::Html};
 
-use crate::models::QuoteApiResponse;
+use crate::{models::QuoteApiResponse, Cxt};
 
+// Util functions
 async fn get_random_quote() -> Result<QuoteApiResponse, reqwest::Error> {
     let res = reqwest::get("https://animechan.vercel.app/api/random")
         .await
@@ -27,12 +28,13 @@ async fn get_quote_by_char(character: &str) -> Result<Vec<QuoteApiResponse>, req
     res
 }
 
-async fn send_quote(cx: UpdateWithCx<AutoSend<Bot>, Message>, quote: &QuoteApiResponse) -> Message {
+async fn send_quote(cx: &Cxt, quote: &QuoteApiResponse) -> Message {
     let text = format!("<i>{}</i> \n - <b>{}</b>", quote.quote, quote.character);
     cx.answer(text).parse_mode(Html).await.unwrap()
 }
 
-pub async fn quote_command(cx: UpdateWithCx<AutoSend<Bot>, Message>, character: String) -> Message {
+pub async fn quote_command(cx: &Cxt, character: String) -> Message {
+    // If no character name is provided, send a random quote.
     if character.is_empty() {
         let res = get_random_quote().await;
         match res {
@@ -43,6 +45,7 @@ pub async fn quote_command(cx: UpdateWithCx<AutoSend<Bot>, Message>, character: 
             }
         }
     } else {
+        // Else find a quote based on the character.
         let res = get_quote_by_char(character.as_str()).await;
         match res {
             Ok(data) => {
@@ -51,6 +54,7 @@ pub async fn quote_command(cx: UpdateWithCx<AutoSend<Bot>, Message>, character: 
             }
             Err(err) => {
                 let _ = err;
+                // If not found, Send an error message.
                 cx.answer("Looks like the character doesn't exists in our Database.")
                     .await
                     .unwrap()
