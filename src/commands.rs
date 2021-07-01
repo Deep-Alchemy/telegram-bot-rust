@@ -1,14 +1,12 @@
 // Define modules
 mod gurl;
+mod quote;
 mod random;
 
 // Imports
 use std::error::Error;
 
-use teloxide::{
-    prelude::*,
-    utils::command::BotCommand
-};
+use teloxide::{prelude::*, utils::command::BotCommand};
 
 // Define the main command handler
 #[derive(BotCommand)]
@@ -23,6 +21,8 @@ pub enum Command {
     Random,
     #[command(description = "Get from particular category.")]
     Gurl(String),
+    #[command(description = "Get a random Anime Quote, or provide character name.")]
+    Quote(String),
 }
 
 // Command handler function
@@ -33,7 +33,8 @@ pub async fn handle_commands(
     match command {
         Command::Help => cx.answer(Command::descriptions()).await.unwrap(),
         Command::Random => random::random_command(cx).await,
-        Command::Gurl(category) => gurl::gurl_command(cx, category).await
+        Command::Gurl(category) => gurl::gurl_command(cx, category).await,
+        Command::Quote(character) => quote::quote_command(cx, character).await,
     };
 
     Ok(())
