@@ -22,8 +22,7 @@ async fn run() {
     log::info!("Logging in as {}", config::BOT_NAME);
 
     // Login with a bot token from the environment
-    let token = env::var("BOT_TOKEN")
-    .expect("`BOT_TOKEN` Missing! Please initialize it");
+    let token = env::var("BOT_TOKEN").expect("`BOT_TOKEN` Missing! Please initialize it.");
 
     // Initialize bot
     let bot = Bot::new(token).auto_send();
