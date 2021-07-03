@@ -17,6 +17,7 @@ async fn get_random_quote() -> Result<QuoteApiResponse, reqwest::Error> {
         .unwrap()
         .json::<QuoteApiResponse>()
         .await;
+
     res
 }
 
@@ -31,6 +32,7 @@ async fn get_quote_by_char(character: &str) -> Result<Vec<QuoteApiResponse>, req
         .unwrap()
         .json::<Vec<QuoteApiResponse>>()
         .await;
+
     res
 }
 
