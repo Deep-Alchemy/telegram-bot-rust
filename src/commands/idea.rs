@@ -16,7 +16,7 @@ pub async fn idea_command(cx: &Cxt) -> Message {
         },
         Err(err) => {
             let _ = err;
-            cx.answer("It looks like our server doesn't wants to give you any advice ;)").await.unwrap()
+            cx.answer("Beep boop, No idea found!").await.unwrap()
         }
     }
 }
