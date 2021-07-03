@@ -15,6 +15,12 @@ pub struct QuoteApiResponse {
     pub quote: String,
 }
 
+#[derive(Deserialize, Debug)]
+pub struct IdeaApiResponse {
+    pub this: String,
+    pub that: String,
+}
+
 
 // Advice Response
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

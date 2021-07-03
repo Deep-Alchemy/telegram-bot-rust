@@ -1,5 +1,6 @@
 // Define modules
 mod gurl;
+mod idea;
 mod quote;
 mod random;
 mod advice;
@@ -27,7 +28,9 @@ pub enum Command {
     #[command(description = "Get a random Anime Quote, or provide character name.")]
     Quote(String),
     #[command(description = "Get some piece of advice.")]
-    Advice
+    Advice,
+    #[command(description = "Get a random idea!")]
+    Idea,
 }
 
 // Command handler function
@@ -41,7 +44,8 @@ pub async fn handle_commands(
         Command::Random => random::random_command(&cx).await,
         Command::Gurl(category) => gurl::gurl_command(&cx, category).await,
         Command::Quote(character) => quote::quote_command(&cx, character).await,
-        Command::Advice => advice::advice_command(&cx).await
+        Command::Advice => advice::advice_command(&cx).await,
+        Command::Idea => idea::idea_command(&cx).await,
     };
 
     // Return OK
