@@ -1,8 +1,14 @@
 // Imports
 use rand::seq::SliceRandom;
-use teloxide::{payloads::SendMessageSetters, prelude::*, types::ParseMode::Html};
+use teloxide::{
+    payloads::SendMessageSetters,
+    prelude::*,
+    types::ParseMode::Html
+};
 
-use crate::{models::QuoteApiResponse, Cxt};
+use crate::{
+    models::QuoteApiResponse, Cxt
+};
 
 // Util functions
 async fn get_random_quote() -> Result<QuoteApiResponse, reqwest::Error> {

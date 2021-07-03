@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use serde;
 
 #[derive(Deserialize, Debug)]
-pub struct APiResponse {
+pub struct ImageAPiResponse {
     pub url: String,
 }
 
