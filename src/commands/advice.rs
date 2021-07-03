@@ -13,7 +13,7 @@ pub async fn advice_command(cx: &Cxt) -> Message {
         Ok(advice) => {
             cx.answer(advice.slip.advice).await.unwrap()
         },
-        Err(err)=> {
+        Err(err) => {
             let _ = err;
             cx.answer("It looks like our server doesn't wants to give you any advice ;)").await.unwrap()
         }

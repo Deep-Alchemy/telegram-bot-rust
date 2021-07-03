@@ -14,7 +14,7 @@ pub async fn idea_command(cx: &Cxt) -> Message {
         Ok(idea) => {
             cx.answer(format!("{} for {}", idea.this, idea.that)).await.unwrap()
         },
-        Err(err)=> {
+        Err(err) => {
             let _ = err;
             cx.answer("It looks like our server doesn't wants to give you any advice ;)").await.unwrap()
         }
