@@ -1,1 +1,1 @@
-pub static BOT_NAME: &str = "Your bot name here";
+pub static BOT_NAME: &str = "Rust Telegram Bot";
