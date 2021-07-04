@@ -1,4 +1,5 @@
 // Define modules
+mod help;
 mod gurl;
 mod idea;
 mod quote;
@@ -40,7 +41,7 @@ pub async fn handle_commands(
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
     // Match commands
     match command {
-        Command::Help => cx.answer(Command::descriptions()).await.unwrap(),
+        Command::Help => help::help_command(&cx, Command::descriptions()).await,
         Command::Random => random::random_command(&cx).await,
         Command::Gurl(category) => gurl::gurl_command(&cx, category).await,
         Command::Quote(character) => quote::quote_command(&cx, character).await,
