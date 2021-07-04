@@ -1,18 +1,26 @@
 // Imports
 use teloxide::prelude::*;
 
-use crate::{
-    utils::get_image, Cxt
-};
+use crate::{Cxt, models::ImageAPiResponse, utils::{get_image, is_gif}};
+
+// Util function to check if its a gif and send image too
+pub async fn send_image(cx: &Cxt, image: ImageAPiResponse ) -> Message {
+    if is_gif(image.url.as_str()) {
+        cx.answer_animation(teloxide::types::InputFile::Url(image.url)).await.unwrap()
+    } else {
+        cx.answer_photo(teloxide::types::InputFile::Url(image.url))
+            .await
+            .unwrap()
+    }
+}
 
 pub async fn gurl_command(cx: &Cxt, category: String) -> Message {
     let data = get_image(&category).await;
 
     match data {
-        Ok(image) => cx
-            .answer_photo(teloxide::types::InputFile::Url(image.url))
-            .await
-            .unwrap(),
+        Ok(image) => {
+            send_image(cx, image).await
+        }
         Err(err) => {
             let _ = err;
             cx.answer(

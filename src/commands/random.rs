@@ -3,13 +3,14 @@ use teloxide::prelude::*;
 
 use crate::{
     utils::get_random_image,
-    Cxt
+    Cxt,
 };
+
+use super::gurl::send_image;
 
 pub async fn random_command(cx: &Cxt) -> Message {
     let random_image = get_random_image().await;
 
-    cx.answer_photo(teloxide::types::InputFile::Url(random_image.url))
-        .await
-        .unwrap()
+    send_image(cx, random_image).await
+ 
 }
