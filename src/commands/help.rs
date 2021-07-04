@@ -1,8 +1,12 @@
-use teloxide::{payloads::SendMessageSetters, prelude::Message, types::{
+use teloxide::{
+    payloads::SendMessageSetters,
+    prelude::Message,
+    types::{
         InlineKeyboardButtonKind,
         InlineKeyboardMarkup,
         InlineKeyboardButton
-    }};
+    }
+};
 
 use crate::Cxt;
 

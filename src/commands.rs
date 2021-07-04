@@ -10,7 +10,8 @@ mod advice;
 use std::error::Error;
 
 use teloxide::{
-    prelude::*, utils::command::BotCommand
+    prelude::*,
+    utils::command::BotCommand
 };
 
 // Define the main command handler
