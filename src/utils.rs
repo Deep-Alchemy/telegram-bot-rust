@@ -31,3 +31,7 @@ pub async fn use_api<T : serde::de::DeserializeOwned>(endpoint: &str) -> Result<
     let res = reqwest::get(endpoint).await.unwrap().json::<T>().await;
     res
 }
+
+pub fn is_gif(url: &str)-> bool {
+    url.contains(".gif")
+}
