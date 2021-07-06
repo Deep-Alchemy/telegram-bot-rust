@@ -31,7 +31,7 @@ async fn run() {
     // Initialize bot
     let bot = Bot::new(token).auto_send();
 
-    // Init commands
+    // Initialize commands repl
     teloxide::commands_repl(bot, config::BOT_NAME, commands::handle_commands)
         .await
 }

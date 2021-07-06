@@ -27,6 +27,7 @@ pub async fn get_random_image() -> ImageAPiResponse {
 }
 
 // Use this instead of writing reqwest everytime
+// TODO: Change to `fetch_api`
 pub async fn use_api<T : serde::de::DeserializeOwned>(endpoint: &str) -> Result<T, reqwest::Error> {
     let res = reqwest::get(endpoint).await.unwrap().json::<T>().await;
     res

@@ -15,6 +15,7 @@ pub async fn help_command(cx: &Cxt, description: String) -> Message {
 
     let github_button = InlineKeyboardButton::new("GitHub", InlineKeyboardButtonKind::Url(github_url));
 
+    // Inline keyboard
     let keyboard = InlineKeyboardMarkup::default().append_row(vec![github_button]);
 
     cx.answer(description).reply_markup(keyboard).await.unwrap()
