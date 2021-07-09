@@ -2,13 +2,13 @@
 use teloxide::prelude::*;
 
 use crate::{
-    utils::use_api,
+    utils::fetch_api,
     Cxt,
     models::AdviceAPIResponse
 };
 
 pub async fn advice_command(cx: &Cxt) -> Message {
-    let data = use_api::<AdviceAPIResponse>("https://api.adviceslip.com/advice").await;
+    let data = fetch_api::<AdviceAPIResponse>("https://api.adviceslip.com/advice").await;
     match data {
         Ok(advice) => {
             cx.answer(advice.slip.advice).await.unwrap()

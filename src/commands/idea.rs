@@ -2,13 +2,13 @@
 use teloxide::prelude::*;
 
 use crate::{
-    utils::use_api,
+    utils::fetch_api,
     Cxt,
     models::IdeaApiResponse
 };
 
 pub async fn idea_command(cx: &Cxt) -> Message {
-    let data = use_api::<IdeaApiResponse>("https://itsthisforthat.com/api.php?json").await;
+    let data = fetch_api::<IdeaApiResponse>("https://itsthisforthat.com/api.php?json").await;
 
     match data {
         Ok(idea) => {

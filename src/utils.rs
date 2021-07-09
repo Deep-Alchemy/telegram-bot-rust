@@ -5,6 +5,7 @@ use crate::models::ImageAPiResponse;
 
 pub async fn get_image(category: &str) -> Result<ImageAPiResponse, reqwest::Error> {
     let mut mutable_category = category;
+
     if mutable_category.is_empty() {
         mutable_category = "waifu"
     };
@@ -27,8 +28,7 @@ pub async fn get_random_image() -> ImageAPiResponse {
 }
 
 // Use this instead of writing reqwest everytime
-// TODO: Change to `fetch_api`
-pub async fn use_api<T : serde::de::DeserializeOwned>(endpoint: &str) -> Result<T, reqwest::Error> {
+pub async fn fetch_api<T : serde::de::DeserializeOwned>(endpoint: &str) -> Result<T, reqwest::Error> {
     let res = reqwest::get(endpoint).await.unwrap().json::<T>().await;
     res
 }
